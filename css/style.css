@@ -1,0 +1,133 @@
+body {
+  background: #f8f5e9;
+  overflow-x: hidden;
+}
+
+.admin-bg {
+  
+position: relative;
+background-image: url(images/cow11.jpg);
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+min-height: 100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.admin-bg::before{
+content: "";
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(0,0,0,0.55);
+}
+
+.admin-card{
+position: relative;
+z-index: 1;
+}
+
+.admin-card {
+  position: relative;
+  backdrop-filter: blur(10px);
+  margin: auto;
+  height: auto;
+  width: 90%;
+  max-width: 350px;
+}
+
+/* NAVBAR */
+.navbar-custom {
+  background: #131921;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: white;
+}
+
+/* HERO SLIDER */
+.carousel-item img {
+  height: 450px;
+  object-fit: cover;
+}
+
+/* CARDS */
+.shop-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+/* SECTIONS */
+.section {
+  display: none;
+}
+.active {
+  display: block;
+}
+
+footer {
+  background: #131921;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.card-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  width: 200px;
+  height: 300px;
+  border-radius: 15px;
+  background-size: 200px 400px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  background-color: #272525;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  text-shadow: 0 0 5px #000;
+}
+
+.overlay span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.overlay h3 {
+  font-size: 18px;
+}
+
+.card-container:hover .card {
+  filter: blur(10px) brightness(0.7);
+  transform: scale(0.95);
+}
+
+.card-container .card:hover {
+  filter: blur(0) brightness(1);
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

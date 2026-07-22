@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dairy Farm Management</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-custom">
+<div class="container-fluid">
+
+<a class="navbar-brand fw-bold text-white">🐄 DairyFarm.in</a>
+
+<div class="d-flex gap-2">
+
+<button class="btn btn-outline-light" onclick="showSection('home')">Home</button>
+
+<button class="btn btn-outline-light" onclick="showSection('products')">Products</button>
+
+<button class="btn btn-outline-light" onclick="showSection('cart')">Cart</button>
+
+<button class="btn btn-outline-light" onclick="showSection('adminLogin')">Admin</button>
+
+</div>
+</div>
+</nav>
+<!-- SIDEBAR -->
+<div class="offcanvas offcanvas-start" id="sidebar">
+<div class="offcanvas-header">
+<h5>Menu</h5>
+<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+</div>
+<div class="offcanvas-body">
+<button id="menuHome" class="btn btn-outline-dark w-100 mb-2" onclick="showSection('home')">Home</button>
+<button id="menuProducts" class="btn btn-outline-dark w-100 mb-2" onclick="showSection('products')">Products</button>
+<button id="menuCart" class="btn btn-outline-dark w-100 mb-2" onclick="showSection('cart')">Cart</button>
+<button id="menuAdmin" class="btn btn-outline-dark w-100" onclick="showSection('adminLogin')">Admin</button>
+</div>
+</div>
+
+<div class="container mt-4">
+
+<!-- HOME -->
+<div id="home" class="section active">
+
+<!-- SLIDER -->
+<div id="farmSlider" class="carousel slide mb-4" data-bs-ride="carousel">
+<div class="carousel-inner">
+<div class="carousel-item active">
+<img src="images/newcow2.jpg" class="d-block w-100">
+</div>
+<div class="carousel-item">
+<img src="images/cow12.jpg" class="d-block w-100">
+</div>
+<div class="carousel-item">
+<img src="images/newcow1.jpg" class="d-block w-100">
+</div>
+</div>
+
+</div>
+
+<!-- ABOUT SECTION -->
+<div class="shop-card mb-4">
+<h3 id="aboutTitle">About Our Dairy Farm</h3>
+<p id="aboutText"> Our dairy farm is a modern, technology-driven agricultural enterprise dedicated to delivering premium quality dairy products with complete transparency and trust. We combine traditional dairy farming values with advanced digital management systems to ensure efficiency, accuracy, and consistency in every stage of production. Animal welfare is at the core of our operations, and each cow is raised in a clean, safe, and stress-free environment while receiving nutrient-rich feed and regular veterinary care. Health records, vaccination schedules, and milk production data are systematically maintained through digital monitoring systems to ensure proper tracking and timely action.
+
+Our farm follows strict hygiene and quality control measures throughout the milking, testing, packaging, and distribution processes. Every product undergoes thorough quality checks to guarantee purity, zero adulteration, and the absence of harmful preservatives. By integrating IoT-based monitoring and smart dashboard management, we efficiently oversee production, stock levels, and operational performance. This data-driven approach minimizes manual errors, improves productivity, and ensures consistent product standards.
+
+We also provide a seamless digital experience for our customers through online ordering, secure payment gateways, automated billing, and real-time order tracking. Transparency in transactions and timely delivery reflect our commitment to customer satisfaction. Furthermore, we adopt sustainable farming practices and responsible waste management systems to protect the environment and support long-term agricultural growth. Through innovation, technology, and ethical practices, we strive to build lasting relationships with our customers while proudly delivering purity, quality, and trust in every product we offer.</p>
+<hr>
+<div class="card-container">
+
+    <div class="card" style="background-image: url('images/kaneyam.jpg')">
+      <div class="overlay">
+        <span>KANGAYAM</span>
+        <h3></h3>
+      </div>
+    </div>
+    
+    <div class="card" style="background-image: url('images/gir.jpg')">
+      <div class="overlay">
+        <span>GIR</span>
+        <h3></h3>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('images/redsindi.jpg')">
+      <div class="overlay">
+        <span>RED SINDHI</span>
+        <h3></h3>
+      </div>
+    </div>
+
+    <div class="card" style="background-image: url('images/halston.jpg')">
+      <div class="overlay">
+        <span>HALSTON</span>
+        <h3></h3>
+      </div>
+    </div>
+     <div class="card" style="background-image: url('images/jersey.jpg')">
+      <div class="overlay">
+        <span>JERSEY</span>
+        <h3></h3>
+      </div>
+    </div>
+
+</div>
+</div>
+<!-- FOOTER (Home page only) -->
+<footer class="bg-dark text-white text-center mt-5 p-4">
+  <h5>Our Dairy Farm</h5>
+  <p>Fresh and natural dairy products directly from our farm.</p>
+  <p>📍 Thiruvarur, Tamil Nadu | 📞 +91 6382947092</p>
+  <p>© 2026 Dairy Farm Management System</p>
+</footer>
+
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="section">
+<h3 id="productTitle">Dairy Products</h3>
+<select class="form-select mb-3" onchange="filterProducts(this.value)">
+<option value="all">All Products</option>
+<option value="milk">Milk Products</option>
+<option value="value">Value Added Products</option>
+</select>
+<div class="row g-4" id="productList"></div>
+</div>
+
+<!-- CART -->
+<div id="cart" class="section">
+<h3 id="cartTitle">Your Cart</h3>
+<div id="cartItems"></div>
+<h4 id="totalAmount"></h4>
+<button class="btn btn-success" onclick="buyItems()">Buy Now</button>
+
+<!-- ORDER TRACKING -->
+<div class="shop-card mt-4">
+<h5>Track Your Order</h5>
+<input type="text" id="trackInput" class="form-control mb-2" placeholder="Enter Tracking ID">
+<button class="btn btn-primary" onclick="trackOrder()">Check Status</button>
+<p id="trackResult" class="mt-2 fw-bold"></p>
+</div>
+</div>
+<!-- CHECKOUT -->
+<div id="checkout" class="section">
+<h3>Checkout</h3>
+
+<div class="shop-card mb-3">
+<h5>Delivery Address</h5>
+<input type="text" id="fullName" class="form-control mb-2" placeholder="Full Name">
+<input type="text" id="address" class="form-control mb-2" placeholder="Address">
+<input type="text" id="city" class="form-control mb-2" placeholder="City">
+<input type="text" id="pincode" class="form-control mb-2" placeholder="Pincode">
+<button class="btn btn-primary" onclick="verifyAddress()">Verify Address</button>
+<p id="addressMsg" class="text-danger mt-2"></p>
+</div>
+
+<div id="paymentSection" style="display:none;">
+<div class="shop-card">
+<h5>Select Payment Method</h5>
+
+<select class="form-select mb-3" onchange="selectPayment(this.value)">
+<option value="">-- Select Payment --</option>
+<option value="upi">UPI</option>
+<option value="card">Card</option>
+<option value="cod">Cash on Delivery</option>
+</select>
+
+<div id="upiBox" style="display:none;">
+<input type="text" id="upiId" class="form-control mb-2" placeholder="Enter UPI ID (example@upi)">
+<button class="btn btn-success" onclick="processUPI()">Pay Now</button>
+<p id="upiMsg" class="text-danger mt-2"></p>
+</div>
+
+<div id="cardBox" style="display:none;">
+<input type="text" id="cardNumber" class="form-control mb-2" placeholder="Enter 16-digit Card Number">
+<button class="btn btn-success" onclick="processCard()">Pay Now</button>
+<p id="cardMsg" class="text-danger mt-2"></p>
+</div>
+
+<div id="codBox" style="display:none;">
+<button class="btn btn-success" onclick="placeOrder()">Confirm Order (COD)</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="section admin-bg">
+<div class="admin-card">
+<h3 class="mb-3">🔐 Admin Login</h3>
+<input type="text" id="username" class="form-control mb-2" placeholder="Username">
+<input type="password" id="password" class="form-control mb-2" placeholder="Password">
+<button class="btn btn-outline-light w-100" onclick="adminLogin()">Login</button>
+<p id="loginMsg" class="text-danger mt-2"></p>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="adminDashboard" class="section">
+<h3>Admin Dashboard</h3>
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3">
+            <div class="card p-3 bg-primary text-white">
+                <h5>Total Orders</h5>
+                <h3 id="totalOrders">0</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 bg-success text-white">
+                <h5>Total Revenue</h5>
+                <h3>₹<span id="totalRevenue">0</span></h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 bg-warning text-dark">
+                <h5>Low Stock Items</h5>
+                <h3 id="lowStock">0</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 bg-danger text-white">
+                <h5>Active Cows</h5>
+                <h3 id="activeCows">12</h3>
+            </div>
+        </div>
+
+    </div>
+<div class="row text-center mb-4">
+<div class="col-md-4">
+<div class="shop-card">
+<h5>Total Cows</h5>
+<h3>23</h3>
+</div>
+</div>
+<div class="col-md-4">
+<div class="shop-card">
+<h5>Grass Stock</h5>
+<h3>500 KG</h3>
+</div>
+</div>
+<div class="col-md-4">
+<div class="shop-card">
+<h5>Daily Milk</h5>
+<h3>500 Litres</h3>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<canvas id="barChart"></canvas>
+</div>
+<div class="col-md-6">
+<canvas id="pieChart"></canvas>
+</div>
+</div>
+<hr class="mt-5">
+
+<div class="shop-card mt-4">
+<h4>📊 Monthly Sales Report</h4>
+
+<table class="table table-bordered text-center">
+
+<thead class="table-dark">
+<tr>
+<th>Month</th>
+<th>Total Orders</th>
+<th>Total Revenue</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>January</td>
+<td>120</td>
+<td>₹25000</td>
+</tr>
+
+<tr>
+<td>February</td>
+<td>140</td>
+<td>₹31000</td>
+</tr>
+
+<tr>
+<td>March</td>
+<td>160</td>
+<td>₹36000</td>
+</tr>
+
+<tr>
+<td>April</td>
+<td>180</td>
+<td>₹42000</td>
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+<hr class="mt-5">
+
+<div class="shop-card mt-4">
+<h4>🐄 Cow Monitoring Panel</h4>
+
+<table class="table table-bordered mt-3">
+<thead class="table-dark">
+<tr>
+<th>Cow ID</th>
+<th>Milk Today (L)</th>
+<th>Health</th>
+<th>Vaccination</th>
+<th>Pregnancy</th>
+<th>Feed (KG)</th>
+</tr>
+</thead>
+<tbody id="cowTableBody"></tbody>
+</table>
+
+</div>
+<hr class="mt-5">
+
+<div class="shop-card mt-4">
+<h4>🌡 Smart IoT Monitoring</h4>
+
+<div class="row text-center">
+
+<div class="col-md-4">
+<div class="card p-3 bg-info text-white">
+<h5>Milk Temperature</h5>
+<h3 id="milkTemp">0°C</h3>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3 bg-success text-white">
+<h5>Storage Tank Level</h5>
+<h3 id="tankLevel">0%</h3>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-3 bg-danger text-white">
+<h5>Cow Health Sensor</h5>
+<h3 id="healthStatus">Normal</h3>
+</div>
+</div>
+
+</div>
+
+</div>
+<hr class="mt-5">
+
+<div class="shop-card mt-4">
+<h4>📦 Order Status Control</h4>
+
+<table class="table table-bordered mt-3">
+<thead class="table-dark">
+<tr>
+<th>Tracking ID</th>
+<th>Current Status</th>
+<th>Update Status</th>
+</tr>
+</thead>
+<tbody id="orderControlTable"></tbody>
+</table>
+</div>
+<hr class="mt-5">
+
+<div class="shop-card mt-4">
+<h4>👨‍🌾 Worker Management</h4>
+
+<table class="table table-bordered text-center">
+
+<thead class="table-dark">
+<tr>
+<th>Worker ID</th>
+<th>Name</th>
+<th>Role</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>W0045</td>
+<td>bharani</td>
+<td>MD</td>
+<td><span class="badge bg-success">Active</span></td>
+</tr>
+
+<tr>
+<td>W002</td>
+<td>Suresh</td>
+<td>Feeding</td>
+<td><span class="badge bg-success">Active</span></td>
+</tr>
+
+<tr>
+<td>W0010</td>
+<td>vicky</td>
+<td>ceo</td>
+<td><span class="badge bg-success">Active</span></td>
+</tr>
+
+<tr>
+<td>W003</td>
+<td>selva</td>
+<td>manager</td>
+<td><span class="badge bg-warning text-dark">Leave</span></td>
+</tr>
+
+<tr>
+<td>W0011</td>
+<td>Rkarthi</td>
+<td>Ass MD</td>
+<td><span class="badge bg-warning text-dark">Leave</span></td>
+</tr>
+
+
+<tr>
+<td>W004</td>
+<td>Arun</td>
+<td>Maintenance</td>
+<td><span class="badge bg-success">Active</span></td>
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center text-lg-start mt-5">
+  <div class="container p-4">
+    <div class="row">
+
+      <!-- Farm Info -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5 class="text-uppercase">Our Dairy Farm</h5>
+        <p>
+          Fresh and natural dairy products directly from our farm. 
+          We provide pure milk, curd, paneer and ghee with the best quality.
+        </p>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5 class="text-uppercase">Contact Information</h5>
+        <p>📍  Location: Thiruvarur, Tamil Nadu</p>
+        <p>📞 Phone: +91 6382947092</p>
+        <p>✉  Email: dairyfarm@gmail.com</p>
+      </div>
+
+      <!-- Working Hours -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5 class="text-uppercase">Working Hours</h5>
+        <p>Monday – Saturday</p>
+        <p>6:00 AM – 8:00 PM</p>
+        <p>Sunday: Closed</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="text-center p-3 bg-secondary">
+    © 2026 Dairy Farm Management System | All Rights Reserved
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
